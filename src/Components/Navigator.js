@@ -95,7 +95,7 @@ export default function Navigator(props) {
                                 <ListItemText sx={{ color: '#fff' }}>{id}</ListItemText>
                             </ListItem>
                             {children.map(({ id: childId, icon, active, link }) => (
-                                <Link to={link} className={'navigate__link'} >
+                                <Link key={childId} to={link} className={'navigate__link'} >
                                     <ListItem disablePadding key={childId}>
                                     {/* selected={active} */}
                                         <ListItemButton  sx={item}>

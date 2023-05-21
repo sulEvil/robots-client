@@ -10,6 +10,7 @@ import {
     Toolbar,
     Typography
 } from "@mui/material";
+import { Context } from "..";
 import MenuIcon from '@mui/icons-material/Menu';
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
@@ -20,6 +21,8 @@ import {LockOutlined} from "@material-ui/icons";
 import {makeStyles} from "@mui/styles";
 import '../styles/index.css'
 import { redirect } from "react-router-dom";
+import { useContext, useState } from "react";
+import { observer } from "mobx-react-lite";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -49,9 +52,11 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function Login() {
+const Login = observer(() => {
     const classes = useStyles();
     let navigate = useNavigate();
+    let [loggin, setLoggin] = useState(true)
+    let {user} = useContext(Context)
     return (
         <div className="Login">
             <Grid container component="main" className={classes.root}>
@@ -65,7 +70,7 @@ function Login() {
                         <Typography component="h1" variant="h5">
                             Заходите на сайт, всегда Вам рады!
                         </Typography>
-                        <form className={classes.form} noValidate
+                        {loggin ? <form className={classes.form} noValidate
                               onSubmit={(e)=> {
                             e.preventDefault()
                             navigate('/')
@@ -103,7 +108,7 @@ function Login() {
                                     variant="contained"
                                     color="primary"
                                     className={classes.submit}
-
+                                    onClick={(e) => {user.setIsAuth(true)}}
                                 >
                                     Войти
                                 </Button>
@@ -115,7 +120,7 @@ function Login() {
                                     </Link>
                                 </Grid>
                                 <Grid item>
-                                    <Link href="/signin" variant="body2" className={'login__link'}>
+                                    <Link onClick={(e) => {setLoggin(false)}} variant="body2" className={'login__link'}>
                                         "Нет учетной записи? Регистрация"
                                     </Link>
                                 </Grid>
@@ -123,12 +128,75 @@ function Login() {
                             <Box mt={5}>
                                 <Copyright />
                             </Box>
-                        </form>
+                        </form> : 
+                        <form className={classes.form} noValidate
+                        onSubmit={(e)=> {
+                      e.preventDefault()
+                      navigate('/')
+                  }}
+                  >
+                      <TextField
+                          variant="outlined"
+                          margin="normal"
+                          required
+                          fullWidth
+                          id="email"
+                          label="Электронная почта"
+                          name="email"
+                          autoComplete="email"
+                          autoFocus
+
+
+                      />
+                      <TextField
+                          variant="outlined"
+                          margin="normal"
+                          required
+                          fullWidth
+                          name="password"
+                          label="Пароль"
+                          type="password"
+                          id="password"
+                          autoComplete="current-password"
+
+                      />
+                      <Box mt={2} mb={4}>
+                          <Button
+                              type="submit"
+                              fullWidth
+                              variant="contained"
+                              color="primary"
+                              className={classes.submit}
+                              onClick={(e) => {user.setIsAuth(true)}}
+                          >
+                              Зарегистрироваться
+                          </Button>
+                      </Box>
+                      <Grid container>
+                          <Grid item xs>
+                              <Link href="#" variant="body2" className={'login__link'}>
+                                  Забыли пароль?
+                              </Link>
+                          </Grid>
+                          <Grid item>
+                              <Link onClick={(e) => {setLoggin(true)}} variant="body2" className={'login__link'}>
+                                  "Есть учетная запись? Войти"
+                              </Link>
+                          </Grid>
+                      </Grid>
+                      <Box mt={5}>
+                          <Copyright />
+                      </Box>
+                  </form>
+                        
+                        }
+                        
                     </div>
                 </Grid>
             </Grid>
         </div>
     );
-}
+})
+
 
 export default Login;

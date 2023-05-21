@@ -1,4 +1,5 @@
-import * as React from 'react';
+import {Context} from './../index.js'
+import React, { useContext }from 'react';
 import AppBar from '@mui/material/AppBar';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
@@ -13,10 +14,9 @@ import {Box} from "@mui/material";
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
 
-
-
 function Header({value, setValue}) {
-
+    const {user} = useContext(Context)
+    let userName = user._user['name'][0].toLowerCase()
     return (
         <React.Fragment>
             <AppBar color="primary" position="sticky" elevation={0}>
@@ -60,7 +60,7 @@ function Header({value, setValue}) {
                         <Grid item>
                             <IconButton color="inherit" sx={{ p: 0.5 }}>
                                 <Box style={{backgroundColor: "#bdbdbd", height: "32px", width: "32px", color: "white", borderRadius: "50%"}}>
-                                    s
+                                    {userName}
                                 </Box>
                             </IconButton>
                         </Grid>

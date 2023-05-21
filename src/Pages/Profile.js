@@ -1,12 +1,14 @@
-import React from 'react';
+import {Context} from './../index.js'
+import React, {useContext} from 'react';
 import Wrapper from "../Components/Wrapper";
 import {Grid, ListItem, Typography} from "@mui/material";
 import ListItemText from "@mui/material/ListItemText";
 import List from "@mui/material/List";
+import {observer} from "mobx-react-lite"
 
-function Profile(props) {
+const Profile = observer(() => {
     const [dense] = React.useState(false);
-
+    const {user, robot} = useContext(Context)
     return (
         <Wrapper>
             <Grid container spacing={2} style={{backgroundColor: 'white'}}>
@@ -17,25 +19,25 @@ function Profile(props) {
                         <List dense={dense}>
                             <ListItem>
                                 <ListItemText
-                                    primary="Султан"
+                                    primary={user._user.name}
                                     secondary={ 'Имя'}
                                 />
                             </ListItem>
                             <ListItem>
                                 <ListItemText
-                                    primary="+7 919 604 33 75"
+                                    primary={user._user.number}
                                     secondary={'Номер телефона'}
                                 />
                             </ListItem>
                             <ListItem>
                                 <ListItemText
-                                    primary="1"
+                                    primary={robot._robots.length}
                                     secondary={'Кол-во роботов'}
                                 />
                             </ListItem>
                             <ListItem>
                                 <ListItemText
-                                    primary="635"
+                                    primary={user._user.id}
                                     secondary={'Идентификатор'}
                                 />
                             </ListItem>
@@ -45,8 +47,7 @@ function Profile(props) {
         </Wrapper>
 
     );
-}
-
+})
 
 
 export default Profile;
