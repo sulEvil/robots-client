@@ -14,9 +14,9 @@ root.render(
   <React.StrictMode>
       <Context.Provider value={{
         user: new UserStore(),
-        robot: new RobotStore(),
-        question: new QuestionStore(),
-        answer: new AnswerStore()
+        robots: new RobotStore(),
+        questions: new QuestionStore(),
+        answers: new AnswerStore()
       }}>
         <App />
       </Context.Provider>

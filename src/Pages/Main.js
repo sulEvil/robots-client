@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Content from '../Components//Content';
+import {Content} from '../Components//Content';
 import Wrapper from "../Components/Wrapper";
 
 

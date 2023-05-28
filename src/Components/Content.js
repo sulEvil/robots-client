@@ -4,7 +4,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-
+import { Context } from '..';
 import TextField from '@mui/material/TextField';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
@@ -16,6 +16,9 @@ import ListItemText from "@mui/material/ListItemText";
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
+import { observer } from "mobx-react-lite";
+import { useContext } from 'react';
+import { RoomServiceRounded } from '@material-ui/icons';
 function TabPanel(props) {
     const { children, value, index} = props;
     return (
@@ -30,8 +33,8 @@ function TabPanel(props) {
         </Box>
     );
 }
-
-export default function Content({value}) {
+ export const Content = observer(({value}) => {
+    const {robots, answers} = useContext(Context)
     return (
         <Paper sx={{ maxWidth: 936, margin: 'auto', overflow: 'hidden' }}>
             <TabPanel value={value} index={0}>
@@ -68,105 +71,42 @@ export default function Content({value}) {
                     </Toolbar>
                 </AppBar>
                 <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                    <ListItem alignItems="flex-start">
-                        <ListItemAvatar>
-                            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                        </ListItemAvatar>
-                        <ListItemText
-                            primary= {
-                                <React.Fragment>
-                                    Понравилась ли вам еда?
-                                    <Typography
-                                        sx={{ display: 'inline' }}
-                                        component="span"
-                                        variant="body2"
-                                        color="#9e9e9e"
-                                    >
-                                        &nbsp; — Ресторан "Кошечка" 23.03.2023
-                                    </Typography>
-                                </React.Fragment>
-                            }
-                            secondary={
-                                <React.Fragment>
-                                    <Typography
-                                        sx={{ display: 'inline' }}
-                                        component="span"
-                                        variant="body2"
-                                        color="text.primary"
-                                    >
-                                        Да, очень!
-                                    </Typography>
-                                </React.Fragment>
-                            }
-                        />
-                    </ListItem>
-                    <Divider variant="inset" component="li" />
-                    <ListItem alignItems="flex-start">
-                        <ListItemAvatar>
-                            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                        </ListItemAvatar>
-                        <ListItemText
-                            primary= {
-                            <React.Fragment>
-                                Как вам наш дизайн?
-                                <Typography
-                                    sx={{ display: 'inline' }}
-                                    component="span"
-                                    variant="body2"
-                                    color="#9e9e9e"
-                                >
-                                    &nbsp; — Ресторан "Кошечка" 23.03.2023
-                                </Typography>
-                            </React.Fragment>
-                            }
-                            secondary={
-                                <React.Fragment>
-                                    <Typography
-                                        sx={{ display: 'inline' }}
-                                        component="span"
-                                        variant="body2"
-                                        color="text.primary"
-                                    >
-                                        Джорджио Армани отдыхает!
-                                    </Typography>
-                                </React.Fragment>
-                            }
-                        />
-                    </ListItem>
-                    <Divider variant="inset" component="li" />
-                    <ListItem alignItems="flex-start">
-                        <ListItemAvatar>
-                            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                        </ListItemAvatar>
-                        <ListItemText
-                            primary= {
-                                <React.Fragment>
-                                    Понравился ли вам наш обслуживающий персонал?
-                                    <Typography
-                                        sx={{ display: 'inline' }}
-                                        component="span"
-                                        variant="body2"
-                                        color="#9e9e9e"
-                                    >
-                                        &nbsp; — Ресторан "Кошечка" 23.03.2023
-                                    </Typography>
-                                </React.Fragment>
-                            }
-                            secondary={
-                                <React.Fragment>
-                                    <Typography
-                                        sx={{ display: 'inline' }}
-                                        component="span"
-                                        variant="body2"
-                                        color="text.primary"
-                                    >
-                                        Классные оффицианты!
-                                    </Typography>
-
-                                </React.Fragment>
-                            }
-                        />
-                    </ListItem>
+                    {answers.answers.map(answer => 
+                        <ListItem alignItems="flex-start">
+                            
+                            <ListItemAvatar>
+                                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                            </ListItemAvatar>
+                            <ListItemText
+                                primary= {
+                                    <React.Fragment>
+                                        {answer.question}
+                                        <Typography
+                                            sx={{ display: 'inline' }}
+                                            component="span"
+                                            variant="body2"
+                                            color="#9e9e9e"
+                                        >
+                                            &nbsp; — "{answer.robotName}" {answer.createdAt}
+                                        </Typography>
+                                    </React.Fragment>
+                                }
+                                secondary={
+                                    <React.Fragment>
+                                        <Typography
+                                            sx={{ display: 'inline' }}
+                                            component="span"
+                                            variant="body2"
+                                            color="text.primary"
+                                        >
+                                            {answer.answer}
+                                        </Typography>
+                                    </React.Fragment>
+                                }
+                            />                   
+                    </ListItem>                
+                        )}
+                    {/* <Divider variant="inset" component="li" /> */}
                 </List>
             </TabPanel>
             <TabPanel value={value} index={1}>
@@ -203,29 +143,22 @@ export default function Content({value}) {
                     </Toolbar>
                 </AppBar>
                 <List>
-                    <ListItem>
-                        <ListItemIcon>
-                            <SmartToyIcon />
-                        </ListItemIcon>
-                        <ListItemText
-                            primary="Pudu-bot"
-                            secondary={ 'Ресторан "Кошечка"'}
-                        />
-                    </ListItem>
-                    <ListItem>
-                        <ListItemIcon>
-                            <SmartToyIcon />
-                        </ListItemIcon>
-                        <ListItemText
-                            primary="Bella-bot"
-                            secondary={'Офис'}
-                        />
-                    </ListItem>
-
+                    {robots.robots.map(robot => 
+                         <ListItem>
+                         <ListItemIcon>
+                             <SmartToyIcon />
+                         </ListItemIcon>
+                         <ListItemText
+                             primary={robot.name}
+                             secondary={robot.desc}
+                         />
+                     </ListItem>
+                        )}         
                 </List>
 
             </TabPanel>
         </Paper>
 
     );
-}
+ })
+

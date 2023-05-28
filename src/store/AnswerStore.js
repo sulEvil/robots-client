@@ -2,19 +2,19 @@ import { makeAutoObservable } from "mobx"
 
 export default class AnswerStore {
    constructor() {
-      this._answer = [
-         {id: 1, text: 'Вопрос'},
-         {id: 2, text: 'Вопрос 2'},
-         {id: 3, text: 'Вопрос 3'},
-         {id: 5, text: 'Вопрос 4'}
+      this._answers = [
+         {id: 1, question: 'Вопрос 1', answer: "Ответ 1", robotName: "Ресторан-кошечка", createdAt: "23.03.2023"},
+         {id: 2, question: 'Вопрос 2', answer: "Ответ 2" , robotName: "Ресторан-кошечка" , createdAt: "23.03.2023"},
+         {id: 3, question: 'Вопрос 3', answer: "Ответ 3!" , robotName: "Офис" , createdAt: "23.03.2023"},
+         {id: 5, question: 'Вопрос 4', answer: "Ответ 4" , robotName: "Офис" , createdAt: "23.03.2023"}
       ]
       makeAutoObservable(this)
    }
 
-   setAnswer(answer){
-      this._answer = answer
+   setAnswer(answers){
+      this._answers = answers
    }
-   get answer(){
-      return this._answer
+   get answers(){
+      return this._answers
    }
 }

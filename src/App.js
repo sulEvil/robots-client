@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import Login from "./Pages/login";
 import Main from "./Pages/Main";
 import Profile from "./Pages/Profile";
+import Anketa from './Pages/Anketa';
 import AddQuestion from "./Pages/AddQuestion";
 import { useContext } from 'react';
 import { Context } from './index';
@@ -21,6 +22,7 @@ const App = observer(() => {
                 <Route exact path="login" element={<Login />} />
                 <Route path="profile" element={<Profile />} />
                  <Route path="addQuestion" element={<AddQuestion />} />
+                 <Route path="/anketa/:id" element={<Anketa />} />
                 <Route exact path="*" element={<h2>Error not found 404</h2>} />
             </Routes>
         </Router>

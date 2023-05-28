@@ -6,7 +6,7 @@ import ListItemText from "@mui/material/ListItemText";
 import List from "@mui/material/List";
 import {observer} from "mobx-react-lite"
 
-const Profile = observer(() => {
+const Anketa = observer(() => {
     const [dense] = React.useState(false);
     const {user, robots} = useContext(Context)
     return (
@@ -14,7 +14,7 @@ const Profile = observer(() => {
             <Grid container spacing={2} style={{backgroundColor: 'white'}}>
                 <Grid item xs={12} md={6}>
                     <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-                        Мой профиль
+                        Анкета робота - 
                     </Typography>
                         <List dense={dense}>
                             <ListItem>
@@ -50,4 +50,4 @@ const Profile = observer(() => {
 })
 
 
-export default Profile;
+export default Anketa;
