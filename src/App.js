@@ -9,7 +9,7 @@ import AddQuestion from "./Pages/AddQuestion";
 import { useContext } from 'react';
 import { Context } from './index';
 import {observer} from "mobx-react-lite"
-
+import Question from './Pages/Question';
 const App = observer(() => {
   const {user} = useContext(Context)
 
@@ -23,6 +23,7 @@ const App = observer(() => {
                 <Route path="profile" element={<Profile />} />
                  <Route path="addQuestion" element={<AddQuestion />} />
                  <Route path="/anketa/:id" element={<Anketa />} />
+                 <Route path="/question/:id" element={<Question />} />
                 <Route exact path="*" element={<h2>Error not found 404</h2>} />
             </Routes>
         </Router>
