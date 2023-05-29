@@ -1,28 +1,24 @@
 import {
-    AppBar, Avatar,
+     Avatar,
     Box,
     Button,
-    Container, CssBaseline,
+    CssBaseline,
     Grid,
-    IconButton,
-
     TextField,
-    Toolbar,
+
     Typography
 } from "@mui/material";
 import { Context } from "..";
-import MenuIcon from '@mui/icons-material/Menu';
-import Header from "../Components/Header";
-import Footer from "../Components/Footer";
 import Paper from '@material-ui/core/Paper';
 import Copyright from "../Components/Copyright";
-import {Link, Navigate, useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {LockOutlined} from "@material-ui/icons";
 import {makeStyles} from "@mui/styles";
 import '../styles/index.css'
-import { redirect } from "react-router-dom";
 import { useContext, useState } from "react";
 import { observer } from "mobx-react-lite";
+import {registration, login} from './../http/userAPI'
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -53,10 +49,35 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Login = observer(() => {
-    const classes = useStyles();
-    let navigate = useNavigate();
+    const classes = useStyles()
+    let navigate = useNavigate()
     let [loggin, setLoggin] = useState(true)
-    let {user} = useContext(Context)
+    const {user} = useContext(Context)
+    const [number, setNumber] = useState('')
+    const [password, setPassword] = useState('')
+
+    const click = async () => {
+        try{
+            let data;
+            if(loggin){
+                data = await login(number, password)
+                console.log('loggin')
+            } else {
+                data = await registration(number, password)
+            }
+            user.setUser(user)
+            user.setIsAuth(true)
+            navigate('/')
+        } catch(e) {
+            alert(e.response.data.message)
+        }
+
+        
+        
+    }
+
+
+
     return (
         <div className="Login">
             <Grid container component="main" className={classes.root}>
@@ -81,12 +102,14 @@ const Login = observer(() => {
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="email"
-                                label="Электронная почта"
-                                name="email"
-                                autoComplete="email"
+                                id="number"
+                                label="Номер телефона"
+                                name="number"
+                                autoComplete="number"
                                 autoFocus
-
+                                value={number}
+                                type="number"
+                                onChange={e=>setNumber(e.target.value)}
 
                             />
                             <TextField
@@ -99,7 +122,8 @@ const Login = observer(() => {
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
-
+                                value={password}
+                                onChange={e=>setPassword(e.target.value)}
                             />
                             <Box mt={2} mb={4}>
                                 <Button
@@ -136,29 +160,32 @@ const Login = observer(() => {
                   }}
                   >
                       <TextField
-                          variant="outlined"
-                          margin="normal"
-                          required
-                          fullWidth
-                          id="email"
-                          label="Электронная почта"
-                          name="email"
-                          autoComplete="email"
-                          autoFocus
-
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="number"
+                            type="number"
+                            label="Номер телефона"
+                            name="number"
+                            autoComplete="number"
+                            autoFocus
+                            value={number}
+                            onChange={e=>setNumber(e.target.value)}
 
                       />
                       <TextField
-                          variant="outlined"
-                          margin="normal"
-                          required
-                          fullWidth
-                          name="password"
-                          label="Пароль"
-                          type="password"
-                          id="password"
-                          autoComplete="current-password"
-
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
+                            label="Пароль"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                            value={password}
+                            onChange={e=>setPassword(e.target.value)}
                       />
                       <Box mt={2} mb={4}>
                           <Button
@@ -167,7 +194,7 @@ const Login = observer(() => {
                               variant="contained"
                               color="primary"
                               className={classes.submit}
-                              onClick={(e) => {user.setIsAuth(true)}}
+                              onClick={(e) => {click()}}
                           >
                               Зарегистрироваться
                           </Button>

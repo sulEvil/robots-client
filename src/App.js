@@ -10,9 +10,10 @@ import { useContext } from 'react';
 import { Context } from './index';
 import {observer} from "mobx-react-lite"
 import Question from './Pages/Question';
+
+
 const App = observer(() => {
   const {user} = useContext(Context)
-
   return (
     <div className="App">
         <Router>
