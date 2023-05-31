@@ -9,6 +9,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { PanoramaSharp } from '@material-ui/icons';
 import { fetchQuestions } from '../http/questionAPI.js';
+import { Button } from '@mui/material';
 const Anketa = observer(() => {
     const params = useParams()
     const [dense] = React.useState(false);
@@ -29,7 +30,10 @@ const Anketa = observer(() => {
     return (
         <Wrapper>
             <Grid container spacing={2} style={{backgroundColor: 'white'}}>
-                <Grid item xs={12} md={6}>
+                <Button color='secondary'>
+                    Вернуться
+                </Button>
+                <Grid item xs={12} md={6} style={{paddingBottom: '16px'}}>
                     <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
                         Анкета
                     </Typography>
@@ -55,6 +59,9 @@ const Anketa = observer(() => {
                       </ListItem>
                         )}       
                     </List>
+                    <Button>
+                        Добавить вопрос
+                    </Button>
                 </Grid>
             </Grid>
         

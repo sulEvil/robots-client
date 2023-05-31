@@ -8,6 +8,9 @@ import {observer} from "mobx-react-lite"
 import EditIcon from '@mui/icons-material/Edit';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { fetchAnswers } from '../http/answersAPI.js';
+import { Button, Box, Modal } from '@mui/material';
+
+
 const Question = observer(() => {
     const [dense] = React.useState(false);
     const {user, answers} = useContext(Context)
@@ -17,10 +20,15 @@ const Question = observer(() => {
         fetchAnswers(params.id).then(data => answers.setAnswers(data))
     }, [])
 
+
     return (
         <Wrapper>
+            
             <Grid container spacing={2} style={{backgroundColor: 'white'}}>
-                <Grid item xs={12} md={6}>
+                    <Button>
+                        Вернуться
+                    </Button>
+                <Grid item xs={12} md={6} style={{paddingBottom: '16px'}}>
                     <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
                        Вопрос
                     </Typography>
@@ -28,7 +36,7 @@ const Question = observer(() => {
                     {answers.answers.map(answer => 
                     <ListItem
                     style={{cursor: 'pointer'}}
-                    onClick = {() => {return navigate('/anketa/' + answer.id)}}
+                    // onClick = {() => {return navigate('/anketa/' + answer.id)}}
                     key={answer.id}
                     secondaryAction={
                         <IconButton edge="end" aria-label="delete">
@@ -46,6 +54,9 @@ const Question = observer(() => {
                       </ListItem>
                         )}       
                     </List>
+                    <Button>
+                        Добавить ответ
+                    </Button>
                 </Grid>
             </Grid>
         
