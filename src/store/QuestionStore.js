@@ -8,10 +8,7 @@ export default class QuestionStore {
          {id: 3, name: 'Числовой'}
       ]
       this._questions = [
-         {id: 1, text: 'Вопрос'},
-         {id: 2, text: 'Вопрос 2'},
-         {id: 3, text: 'Вопрос 3'},
-         {id: 5, text: 'Вопрос 4'}
+         {id: 1, text: 'Загрузка...'}
       ]
       makeAutoObservable(this)
    }

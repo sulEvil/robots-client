@@ -19,7 +19,6 @@ import { useContext, useState } from "react";
 import { observer } from "mobx-react-lite";
 import {registration, login} from './../http/userAPI'
 
-
 const useStyles = makeStyles(theme => ({
     root: {
         height: '100vh',
@@ -55,17 +54,18 @@ const Login = observer(() => {
     const {user} = useContext(Context)
     const [number, setNumber] = useState('')
     const [password, setPassword] = useState('')
+    let element = document.getElementById('number-1')
+
 
     const click = async () => {
         try{
             let data;
             if(loggin){
                 data = await login(number, password)
-                console.log('loggin')
             } else {
                 data = await registration(number, password)
             }
-            user.setUser(user)
+            user.setUser(data)
             user.setIsAuth(true)
             navigate('/')
         } catch(e) {
@@ -102,13 +102,13 @@ const Login = observer(() => {
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="number"
+                                id="number-1"
                                 label="Номер телефона"
                                 name="number"
                                 autoComplete="number"
                                 autoFocus
                                 value={number}
-                                type="number"
+                                placeholder="+7(000)000-00-00"
                                 onChange={e=>setNumber(e.target.value)}
 
                             />
@@ -120,7 +120,7 @@ const Login = observer(() => {
                                 name="password"
                                 label="Пароль"
                                 type="password"
-                                id="password"
+                                id="password-1"
                                 autoComplete="current-password"
                                 value={password}
                                 onChange={e=>setPassword(e.target.value)}
@@ -132,7 +132,7 @@ const Login = observer(() => {
                                     variant="contained"
                                     color="primary"
                                     className={classes.submit}
-                                    onClick={(e) => {user.setIsAuth(true)}}
+                                    onClick={(e) =>click()}
                                 >
                                     Войти
                                 </Button>
@@ -164,7 +164,7 @@ const Login = observer(() => {
                             margin="normal"
                             required
                             fullWidth
-                            id="number"
+                            id="number-2"
                             type="number"
                             label="Номер телефона"
                             name="number"
@@ -182,7 +182,7 @@ const Login = observer(() => {
                             name="password"
                             label="Пароль"
                             type="password"
-                            id="password"
+                            id="password-2"
                             autoComplete="current-password"
                             value={password}
                             onChange={e=>setPassword(e.target.value)}

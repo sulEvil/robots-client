@@ -1,14 +1,19 @@
 import {Context} from './../index.js'
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import Wrapper from "../Components/Wrapper";
 import {Grid, ListItem, Typography} from "@mui/material";
 import ListItemText from "@mui/material/ListItemText";
 import List from "@mui/material/List";
 import {observer} from "mobx-react-lite"
+import { fetchRobots } from '../http/robotAPI.js';
 
 const Profile = observer(() => {
     const [dense] = React.useState(false);
     const {user, robots} = useContext(Context)
+    console.log(robots)
+    useEffect(()=> {
+        fetchRobots(user._user.id).then(data => robots.setRobots(data))
+    }, [])
     return (
         <Wrapper>
             <Grid container spacing={2} style={{backgroundColor: 'white'}}>

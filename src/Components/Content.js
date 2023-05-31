@@ -19,7 +19,10 @@ import Divider from "@mui/material/Divider";
 import { observer } from "mobx-react-lite";
 import { useContext } from 'react';
 import { RoomServiceRounded } from '@material-ui/icons';
+import { fetchRobots } from '../http/robotAPI';
 function TabPanel(props) {
+
+
     const { children, value, index} = props;
     return (
         <Box
@@ -34,7 +37,11 @@ function TabPanel(props) {
     );
 }
  export const Content = observer(({value}) => {
-    const {robots, answers} = useContext(Context)
+    const {robots, reviews, user} = useContext(Context)
+    React.useEffect(()=> {
+        fetchRobots(user._user.id).then(data => robots.setRobots(data))
+        
+    }, [])
     return (
         <Paper sx={{ maxWidth: 936, margin: 'auto', overflow: 'hidden' }}>
             <TabPanel value={value} index={0}>
@@ -71,9 +78,8 @@ function TabPanel(props) {
                     </Toolbar>
                 </AppBar>
                 <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                    {answers.answers.map(answer => 
-                        <ListItem alignItems="flex-start">
-                            
+                    {reviews.reviews.map(answer => 
+                        <ListItem alignItems="flex-start" key={answer.id}>
                             <ListItemAvatar>
                                 <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
                             </ListItemAvatar>
@@ -144,7 +150,7 @@ function TabPanel(props) {
                 </AppBar>
                 <List>
                     {robots.robots.map(robot => 
-                         <ListItem>
+                         <ListItem key={robot.id}>
                          <ListItemIcon>
                              <SmartToyIcon />
                          </ListItemIcon>

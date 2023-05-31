@@ -1,5 +1,5 @@
 import {Context} from './../index.js'
-import React, { useContext }from 'react';
+import React, { useContext, useEffect }from 'react';
 import AppBar from '@mui/material/AppBar';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
@@ -11,12 +11,12 @@ import Tabs from '@mui/material/Tabs';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import {Box} from "@mui/material";
+import { observer } from 'mobx-react-lite';
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
-
-function Header({value, setValue}) {
+const Header = observer(({value, setValue}) => {
     const {user} = useContext(Context)
-    let userName = user._user['name'][0].toLowerCase()
+    let userName =  'd'
     return (
         <React.Fragment>
             <AppBar color="primary" position="sticky" elevation={0}>
@@ -88,6 +88,7 @@ function Header({value, setValue}) {
 
         </React.Fragment>
     );
-}
+})
+
 
 export default Header;

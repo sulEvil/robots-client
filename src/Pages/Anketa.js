@@ -1,33 +1,40 @@
 import {Context} from './../index.js'
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import Wrapper from "../Components/Wrapper";
 import {Grid, ListItem, Typography, IconButton, ListItemAvatar, Avatar} from "@mui/material";
 import ListItemText from "@mui/material/ListItemText";
 import List from "@mui/material/List";
 import {observer} from "mobx-react-lite"
 import EditIcon from '@mui/icons-material/Edit';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { PanoramaSharp } from '@material-ui/icons';
+import { fetchQuestions } from '../http/questionAPI.js';
 const Anketa = observer(() => {
+    const params = useParams()
     const [dense] = React.useState(false);
-    const {user, robots} = useContext(Context)
+    const {user, robots, questions} = useContext(Context)
     const navigate = useNavigate()
-    const robot = {id: 1, desc: 'Описание робота', name: 'Белла-бот', deviceId: "123abc123"}
-    const questions = [
-        {id: 1, text: 'Вопрос'},
-        {id: 2, text: 'Вопрос 2'},
-        {id: 3, text: 'Вопрос 3'},
-        {id: 5, text: 'Вопрос 4'}
-    ]
+    useEffect(() => {
+        fetchQuestions(params.id).then(data => questions.setQuestions(data))
+    }, [])
+    // const questions = [
+    //     {id: 1, text: 'Вопрос'},
+    //     {id: 2, text: 'Вопрос 2'},
+    //     {id: 3, text: 'Вопрос 3'},
+    //     {id: 5, text: 'Вопрос 4'}
+    // ]
+
+
 
     return (
         <Wrapper>
             <Grid container spacing={2} style={{backgroundColor: 'white'}}>
                 <Grid item xs={12} md={6}>
                     <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-                        {robot.name} - {robot.desc}
+                        Анкета
                     </Typography>
                     <List>
-                    {questions.map(question => 
+                    {questions.questions.map(question => 
                     <ListItem
                     style={{cursor: 'pointer'}}
                     onClick = {() => {return navigate('/question/' + question.id)}}

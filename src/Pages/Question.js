@@ -1,33 +1,31 @@
 import {Context} from './../index.js'
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import Wrapper from "../Components/Wrapper";
 import {Grid, ListItem, Typography, IconButton, ListItemAvatar, Avatar} from "@mui/material";
 import ListItemText from "@mui/material/ListItemText";
 import List from "@mui/material/List";
 import {observer} from "mobx-react-lite"
 import EditIcon from '@mui/icons-material/Edit';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { fetchAnswers } from '../http/answersAPI.js';
 const Question = observer(() => {
     const [dense] = React.useState(false);
-    const {user, robots} = useContext(Context)
+    const {user, answers} = useContext(Context)
+    const params = useParams()
     const navigate = useNavigate()
-    const question = {id: 1, text: 'Вопрос 2'}
-    const answers = [
-        {id: 1, text: 'Ответ 1'},
-        {id: 2, text: 'Ответ 2'},
-        {id: 3, text: 'Ответ 3'},
-        {id: 5, text: 'Ответ 4'}
-    ]
+    useEffect(() => {
+        fetchAnswers(params.id).then(data => answers.setAnswers(data))
+    }, [])
 
     return (
         <Wrapper>
             <Grid container spacing={2} style={{backgroundColor: 'white'}}>
                 <Grid item xs={12} md={6}>
                     <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-                       Вопрос - {question.text}
+                       Вопрос
                     </Typography>
                     <List>
-                    {answers.map(answer => 
+                    {answers.answers.map(answer => 
                     <ListItem
                     style={{cursor: 'pointer'}}
                     onClick = {() => {return navigate('/anketa/' + answer.id)}}

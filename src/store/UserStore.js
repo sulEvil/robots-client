@@ -5,9 +5,9 @@ export default class UserStore {
       this._isAuth = false
       this._user = {
          id: 1,
-         number: "79196043375",
-         role: "USER",
-         name: "Sultan"
+         number: "",
+         role: "",
+         name: ""
       }
       makeAutoObservable(this)
    }

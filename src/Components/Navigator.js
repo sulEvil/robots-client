@@ -28,32 +28,7 @@ const categories = [
             { id: 'Редактирование приложения', icon: <SettingsIcon />, link: '/' },
         ],
     },
-    {
-        id: 'Build',
-        children: [
-            {
-                id: 'Authentication',
-                icon: <PeopleIcon />,
-                active: true,
-            },
-            { id: 'Database', icon: <DnsRoundedIcon /> },
-            { id: 'Storage', icon: <PermMediaOutlinedIcon /> },
-            { id: 'Hosting', icon: <PublicIcon /> },
-            { id: 'Functions', icon: <SettingsEthernetIcon /> },
-            {
-                id: 'Machine learning',
-                icon: <SettingsInputComponentIcon />,
-            },
-        ],
-    },
-    {
-        id: 'Quality',
-        children: [
-            { id: 'Analytics', icon: <SettingsIcon /> },
-            { id: 'Performance', icon: <TimerIcon /> },
-            { id: 'Test Lab', icon: <PhonelinkSetupIcon /> },
-        ],
-    },
+
 ];
 
 const item = {

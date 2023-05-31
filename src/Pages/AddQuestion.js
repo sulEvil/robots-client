@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Wrapper from "../Components/Wrapper";
 import {Avatar, Grid, IconButton, ListItem, ListItemAvatar, Typography} from "@mui/material";
 import List from "@mui/material/List";
@@ -8,10 +8,15 @@ import BallotIcon from '@mui/icons-material/Ballot';
 import { observer } from "mobx-react-lite";
 import { useContext } from 'react';
 import { Context } from '..';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import {fetchRobots} from './../http/robotAPI'
+
 const AddQuestion = observer((props) => {
-    const {robots} = useContext(Context)
+    const {robots, user} = useContext(Context)
     const navigate = useNavigate()
+    useEffect(()=> {
+        fetchRobots(user._user.id).then(data => robots.setRobots(data))
+    }, [])
     return (
         <Wrapper>
             <Grid container spacing={2} style={{backgroundColor: 'white'}}>

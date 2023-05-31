@@ -6,6 +6,7 @@ import UserStore from './store/UserStore.js'
 import RobotStore from './store/RobotStore.js'
 import QuestionStore from './store/QuestionStore.js'
 import AnswerStore from './store/AnswerStore.js'
+import ReviewsStore from './store/ReviewStore';
 
 export const Context = createContext (null)
 
@@ -16,7 +17,8 @@ root.render(
         user: new UserStore(),
         robots: new RobotStore(),
         questions: new QuestionStore(),
-        answers: new AnswerStore()
+        answers: new AnswerStore(),
+        reviews: new ReviewsStore()
       }}>
         <App />
       </Context.Provider>
