@@ -7,19 +7,19 @@ import List from "@mui/material/List";
 import {observer} from "mobx-react-lite"
 import EditIcon from '@mui/icons-material/Edit';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { fetchAnswers } from '../http/answersAPI.js';
+import { fetchAnswers } from './../http/answersAPI.js';
 import { Button, Box, Modal } from '@mui/material';
-
-
+import CreateAnswer from './../Components/CreateAnswer.js';
 const Question = observer(() => {
-    const [dense] = React.useState(false);
-    const {user, answers} = useContext(Context)
+    const {answers} = useContext(Context)
     const params = useParams()
     const navigate = useNavigate()
     useEffect(() => {
         fetchAnswers(params.id).then(data => answers.setAnswers(data))
     }, [])
-
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     return (
         <Wrapper>
@@ -33,6 +33,7 @@ const Question = observer(() => {
                        Вопрос
                     </Typography>
                     <List>
+                    <CreateAnswer handleOpen={handleOpen} handleClose={handleClose} open={open} fetchAnswers={fetchAnswers} />
                     {answers.answers.map(answer => 
                     <ListItem
                     style={{cursor: 'pointer'}}
@@ -54,7 +55,7 @@ const Question = observer(() => {
                       </ListItem>
                         )}       
                     </List>
-                    <Button>
+                    <Button onClick={handleOpen}>
                         Добавить ответ
                     </Button>
                 </Grid>

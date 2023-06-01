@@ -1,7 +1,7 @@
 import { $authHost, $host } from ".";
 
 export const createAnswer = async (answer) => {
-    const {data} = await $authHost.post('api/question', answer)
+    const {data} = await $authHost.post('api/answer', answer)
     return data
 }
 export const fetchAnswers = async (questionId) => {

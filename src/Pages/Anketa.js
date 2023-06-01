@@ -10,23 +10,19 @@ import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { PanoramaSharp } from '@material-ui/icons';
 import { fetchQuestions } from '../http/questionAPI.js';
 import { Button } from '@mui/material';
+import CreateQuestion from './../Components/CreateQuestion.js';
 const Anketa = observer(() => {
     const params = useParams()
     const [dense] = React.useState(false);
-    const {user, robots, questions} = useContext(Context)
+    const {questions} = useContext(Context)
     const navigate = useNavigate()
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
     useEffect(() => {
         fetchQuestions(params.id).then(data => questions.setQuestions(data))
     }, [])
-    // const questions = [
-    //     {id: 1, text: 'Вопрос'},
-    //     {id: 2, text: 'Вопрос 2'},
-    //     {id: 3, text: 'Вопрос 3'},
-    //     {id: 5, text: 'Вопрос 4'}
-    // ]
-
-
-
     return (
         <Wrapper>
             <Grid container spacing={2} style={{backgroundColor: 'white'}}>
@@ -37,6 +33,7 @@ const Anketa = observer(() => {
                     <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
                         Анкета
                     </Typography>
+                    <CreateQuestion handleOpen={handleOpen} handleClose={handleClose} open={open} fetchQuestions={fetchQuestions}  />
                     <List>
                     {questions.questions.map(question => 
                     <ListItem
@@ -59,7 +56,7 @@ const Anketa = observer(() => {
                       </ListItem>
                         )}       
                     </List>
-                    <Button>
+                    <Button onClick={handleOpen}>
                         Добавить вопрос
                     </Button>
                 </Grid>

@@ -1,42 +1,61 @@
-import {Context} from './../index.js'
-import React, {useContext, useEffect} from 'react';
-import Wrapper from "../Components/Wrapper";
-import {Grid, ListItem, Typography, IconButton, ListItemAvatar, Avatar} from "@mui/material";
-import ListItemText from "@mui/material/ListItemText";
-import List from "@mui/material/List";
+import React, {useState, useContext} from 'react';
+import {Typography} from "@mui/material";
 import {observer} from "mobx-react-lite"
-import EditIcon from '@mui/icons-material/Edit';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { fetchAnswers } from '../http/answersAPI.js';
 import { Button, Box, Modal } from '@mui/material';
+import { FormControl, InputLabel, Input, FormHelperText } from '@mui/material';
+import { useParams } from 'react-router-dom';
+import { Context } from './..';
+import { createQuestion } from '../http/questionAPI';
 
-
-const CreateQuestion = observer(() => {
-    const [dense] = React.useState(false);
-    const {user, answers} = useContext(Context)
+const CreateQuestion = observer(({handleClose, open, fetchQuestions}) => {
+    const {questions} = useContext(Context)
+    const style = {
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      width: 400,
+      bgcolor: "background.paper",
+      borderRadius: '16px',
+      boxShadow: 24,
+      p: 4,
+      width: '640px',
+      display: 'flex',
+      flexDirection: 'column'
+    };
     const params = useParams()
-    const navigate = useNavigate()
-    useEffect(() => {
-        fetchAnswers(params.id).then(data => answers.setAnswers(data))
-    }, [])
-
-
+    const [text, setText] = useState()
+    const addQuestion = () => {
+      createQuestion({robotId: params.id, text: text}).then(data => {
+        setText('')
+        handleClose()
+        fetchQuestions(params.id).then(data => questions.setQuestions(data))
+      })
+    }
     return (
-      <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-            >
-            <Box>
-               <Typography id="modal-modal-title" variant="h6" component="h2">
-               Text in a modal
-               </Typography>
-               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-               Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-               </Typography>
-            </Box>
-      </Modal>
+      <div>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2" style={{marginBottom: '16px'}}>
+              Создание вопроса
+            </Typography>
+            <FormControl>
+              <InputLabel htmlFor="my-input" style={{width: '400px'}}>Вопрос</InputLabel>
+              <Input id="my-input" aria-describedby="my-helper-text" value={text} onChange={e => setText(e.target.value)} />
+              <FormHelperText id="my-helper-text" style={{marginBottom: '16px'}}>Этот вопрос будет отображаться на вашем роботе</FormHelperText>
+              <Button onClick={addQuestion}>
+                  Добавить вопрос
+              </Button>
+            </FormControl>
+          </Box>
+        </Modal>
+      </div>
+      
     );
 })
 

@@ -7,11 +7,11 @@ import axios from 'axios'
 // baseURL: 'http://localhost:9090/'
 // baseURL: 'http://localhost:9090/'
 const $host = axios.create({
-    baseURL: 'http://localhost:9090/'
+    baseURL: 'http://gals-centos.soft-servis.local:8080/'
 })
 
 const $authHost = axios.create({
-    baseURL: 'http://localhost:9090/'
+    baseURL: 'http://gals-centos.soft-servis.local:8080/'
 })
 
 const authInterceptor = config => {
