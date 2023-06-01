@@ -145,7 +145,7 @@ const Login = observer(() => {
                                 </Grid>
                                 <Grid item>
                                     <Link onClick={(e) => {setLoggin(false)}} variant="body2" className={'login__link'}>
-                                        "Нет учетной записи? Регистрация"
+                                        Нет учетной записи? Регистрация
                                     </Link>
                                 </Grid>
                             </Grid>

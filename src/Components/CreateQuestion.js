@@ -25,11 +25,11 @@ const CreateQuestion = observer(({handleClose, open, fetchQuestions}) => {
     };
     const params = useParams()
     const [text, setText] = useState()
-    const addQuestion = () => {
-      createQuestion({robotId: params.id, text: text}).then(data => {
+    const addQuestion = async () => {
+      createQuestion({robotId: params.id, text: text}).then( async (data) => {
         setText('')
         handleClose()
-        fetchQuestions(params.id).then(data => questions.setQuestions(data))
+        await fetchQuestions(params.id).then(data => questions.setQuestions(data))
       })
     }
     return (

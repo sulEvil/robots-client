@@ -5,12 +5,13 @@ import {Grid, ListItem, Typography, IconButton, ListItemAvatar, Avatar} from "@m
 import ListItemText from "@mui/material/ListItemText";
 import List from "@mui/material/List";
 import {observer} from "mobx-react-lite"
-import EditIcon from '@mui/icons-material/Edit';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { PanoramaSharp } from '@material-ui/icons';
+import { useNavigate, useParams } from 'react-router-dom';
 import { fetchQuestions } from '../http/questionAPI.js';
 import { Button } from '@mui/material';
 import CreateQuestion from './../Components/CreateQuestion.js';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { deleteQuestion } from './../http/questionAPI.js';
+
 const Anketa = observer(() => {
     const params = useParams()
     const [dense] = React.useState(false);
@@ -20,15 +21,20 @@ const Anketa = observer(() => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    const deletedQuestion = async (id) => {
+        await deleteQuestion({id})
+        fetchQuestions(params.id).then(data => questions.setQuestions(data))
+    }
     useEffect(() => {
         fetchQuestions(params.id).then(data => questions.setQuestions(data))
     }, [])
+
     return (
         <Wrapper>
             <Grid container spacing={2} style={{backgroundColor: 'white'}}>
-                <Button color='secondary'>
+                {/* <Button color='secondary'>
                     Вернуться
-                </Button>
+                </Button> */}
                 <Grid item xs={12} md={6} style={{paddingBottom: '16px'}}>
                     <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
                         Анкета
@@ -42,7 +48,10 @@ const Anketa = observer(() => {
                     key={question.id}
                     secondaryAction={
                         <IconButton edge="end" aria-label="delete">
-                            <EditIcon />
+                            <DeleteIcon onClick={(e) => {
+                                e.stopPropagation()
+                                deletedQuestion(question.id) 
+                            }} />
                         </IconButton>
                     }
                     >

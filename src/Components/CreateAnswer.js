@@ -6,6 +6,7 @@ import { FormControl, InputLabel, Input, FormHelperText } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { Context } from './..';
 import { createAnswer } from './../http/answersAPI';
+
 const CreateAnswer = observer(({handleClose, open, fetchAnswers}) => {
     const {answers} = useContext(Context)
     const style = {
@@ -25,10 +26,10 @@ const CreateAnswer = observer(({handleClose, open, fetchAnswers}) => {
     const params = useParams()
     const [text, setText] = useState()
     const addAnswer = () => {
-      createAnswer({questionId: params.id, text: text}).then(data => {
+      createAnswer({questionId: params.id, text: text}).then( async (data) => {
         setText('')
         handleClose()
-        fetchAnswers(params.id).then(data => answers.setAnswers(data))
+        await fetchAnswers(params.id).then(data => answers.setAnswers(data))
       })
     }
     return (

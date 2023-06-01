@@ -5,11 +5,13 @@ import {Grid, ListItem, Typography, IconButton, ListItemAvatar, Avatar} from "@m
 import ListItemText from "@mui/material/ListItemText";
 import List from "@mui/material/List";
 import {observer} from "mobx-react-lite"
-import EditIcon from '@mui/icons-material/Edit';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { fetchAnswers } from './../http/answersAPI.js';
 import { Button, Box, Modal } from '@mui/material';
 import CreateAnswer from './../Components/CreateAnswer.js';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { deleteAnswer } from './../http/answersAPI.js';
+
 const Question = observer(() => {
     const {answers} = useContext(Context)
     const params = useParams()
@@ -20,14 +22,18 @@ const Question = observer(() => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const deletedAnswer = async (id) => {
+        await deleteAnswer({id})
+        fetchAnswers(params.id).then(data => answers.setAnswers(data))
+    }
 
     return (
         <Wrapper>
             
             <Grid container spacing={2} style={{backgroundColor: 'white'}}>
-                    <Button>
+                    {/* <Button>
                         Вернуться
-                    </Button>
+                    </Button> */}
                 <Grid item xs={12} md={6} style={{paddingBottom: '16px'}}>
                     <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
                        Вопрос
@@ -41,7 +47,11 @@ const Question = observer(() => {
                     key={answer.id}
                     secondaryAction={
                         <IconButton edge="end" aria-label="delete">
-                            <EditIcon />
+                            <DeleteIcon onClick={(e) => {
+                                 // deleteAnswer(question.id) 
+                                 e.stopPropagation()
+                                 deletedAnswer(answer.id)
+                                 }}  />
                         </IconButton>
                     }
                     >

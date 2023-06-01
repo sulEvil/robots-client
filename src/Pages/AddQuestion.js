@@ -3,13 +3,13 @@ import Wrapper from "../Components/Wrapper";
 import {Avatar, Grid, IconButton, ListItem, ListItemAvatar, Typography} from "@mui/material";
 import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
-import DeleteIcon from '@mui/icons-material/Delete';
 import BallotIcon from '@mui/icons-material/Ballot';
 import { observer } from "mobx-react-lite";
 import { useContext } from 'react';
 import { Context } from '..';
 import { useNavigate } from 'react-router-dom';
 import {fetchRobots} from './../http/robotAPI'
+import EditIcon from '@mui/icons-material/Edit';
 
 const AddQuestion = observer((props) => {
     const {robots, user} = useContext(Context)
@@ -32,7 +32,7 @@ const AddQuestion = observer((props) => {
                     key={robot.id}
                     secondaryAction={
                         <IconButton edge="end" aria-label="delete">
-                            <DeleteIcon />
+                            <EditIcon />
                         </IconButton>
                     }
                     >

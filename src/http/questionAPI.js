@@ -12,3 +12,7 @@ export const getAllQuestions = async () => {
     const {data} = await $authHost.get('api/question/all')
     return data
 }
+export const deleteQuestion = async(id) => {
+    const {data} = await $authHost.post('api/question/delete', id)
+    return data
+}
