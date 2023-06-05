@@ -11,6 +11,7 @@ import {observer} from "mobx-react-lite"
 import Question from './Pages/Question';
 import { useState } from 'react';
 import {check} from './http/userAPI';
+import Unload from './Pages/Unload';
 
 const App = observer((props) => {
   const {user} = useContext(Context)
@@ -36,8 +37,9 @@ const App = observer((props) => {
                 <Route exact path="login" element={<Login />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="addQuestion" element={<AddQuestion />} />
-                <Route path="/anketa/:id" element={<Anketa />} />
-                <Route path="/question/:id" element={<Question />} />
+                <Route path="anketa/:id" element={<Anketa />} />
+                <Route path="question/:id" element={<Question />} />
+                <Route path="unload" element={<Unload />} />
                 <Route exact path="*" element={<h2>Error not found 404</h2>} />
                 
             </Routes>

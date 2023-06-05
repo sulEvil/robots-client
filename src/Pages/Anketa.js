@@ -11,6 +11,7 @@ import { Button } from '@mui/material';
 import CreateQuestion from './../Components/CreateQuestion.js';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { deleteQuestion } from './../http/questionAPI.js';
+import EditIcon from '@mui/icons-material/Edit';
 
 const Anketa = observer(() => {
     const params = useParams()
@@ -42,17 +43,27 @@ const Anketa = observer(() => {
                     <CreateQuestion handleOpen={handleOpen} handleClose={handleClose} open={open} fetchQuestions={fetchQuestions}  />
                     <List>
                     {questions.questions.map(question => 
+                    
+                    question.type === 'Мнение' ?
                     <ListItem
                     style={{cursor: 'pointer'}}
-                    onClick = {() => {return navigate('/question/' + question.id)}}
                     key={question.id}
                     secondaryAction={
+                        <div>
+                        <IconButton edge="end" aria-label="delete" style={{marginRight: '12px'}}>
+                            <EditIcon onClick={(e) => {
+                                e.stopPropagation()
+                                navigate('/question/' + question.id)
+                            }} />
+                        </IconButton> 
                         <IconButton edge="end" aria-label="delete">
                             <DeleteIcon onClick={(e) => {
                                 e.stopPropagation()
                                 deletedQuestion(question.id) 
                             }} />
                         </IconButton>
+                        </div>
+                        
                     }
                     >
                           <ListItemAvatar>
@@ -63,8 +74,33 @@ const Anketa = observer(() => {
                             //   secondary={robot.desc}
                           />
                       </ListItem>
+                      :
+                      <ListItem
+                        style={{cursor: 'pointer'}}
+                        key={question.id}
+                        secondaryAction={
+                            <div>
+                            <IconButton edge="end" aria-label="delete">
+                                <DeleteIcon onClick={(e) => {
+                                    e.stopPropagation()
+                                    deletedQuestion(question.id) 
+                                }} />
+                            </IconButton>
+                            </div>
+                            
+                        }
+                        >
+                          <ListItemAvatar>
+    
+                          </ListItemAvatar>
+                          <ListItemText
+                              primary={question.text}
+                            //   secondary={robot.desc}
+                          />
+                      </ListItem>
                         )}       
                     </List>
+                    
                     <Button onClick={handleOpen}>
                         Добавить вопрос
                     </Button>

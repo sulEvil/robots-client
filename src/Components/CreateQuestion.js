@@ -7,6 +7,12 @@ import { useParams } from 'react-router-dom';
 import { Context } from './..';
 import { createQuestion } from '../http/questionAPI';
 
+import FormLabel from '@mui/material/FormLabel';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+
+
 const CreateQuestion = observer(({handleClose, open, fetchQuestions}) => {
     const {questions} = useContext(Context)
     const style = {
@@ -24,14 +30,19 @@ const CreateQuestion = observer(({handleClose, open, fetchQuestions}) => {
       flexDirection: 'column'
     };
     const params = useParams()
+
     const [text, setText] = useState()
+    const [type, setType] = useState("Мнение")
+
     const addQuestion = async () => {
-      createQuestion({robotId: params.id, text: text}).then( async (data) => {
+      createQuestion({robotId: params.id, text: text, type}).then( async (data) => {
         setText('')
         handleClose()
         await fetchQuestions(params.id).then(data => questions.setQuestions(data))
       })
     }
+
+
     return (
       <div>
         <Modal
@@ -48,7 +59,67 @@ const CreateQuestion = observer(({handleClose, open, fetchQuestions}) => {
               <InputLabel htmlFor="my-input" style={{width: '400px'}}>Вопрос</InputLabel>
               <Input id="my-input" aria-describedby="my-helper-text" value={text} onChange={e => setText(e.target.value)} />
               <FormHelperText id="my-helper-text" style={{marginBottom: '16px'}}>Этот вопрос будет отображаться на вашем роботе</FormHelperText>
-              <Button onClick={addQuestion}>
+
+              <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+                <FormLabel component="legend">Выберите тип вопроса</FormLabel>
+                <FormGroup style={{display: 'grid', gridTemplateColumns: '50% 50%'}}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox checked={type === "Мнение"} onChange={() => setType("Мнение")} name="Мнение" />
+                    }
+                    label="Мнение"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox  checked={type === "Простой вопрос"} onChange={() => setType("Простой вопрос")}  name="Простой вопрос" />
+                    }
+                    label="Простой вопрос"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox checked={type === "Возраст"} onChange={() => setType("Возраст")} name="Возраст" />
+                    }
+                    label="Возраст"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox checked={type === "Дата рождения"} onChange={() => setType("Дата рождения")} name="Дата рождения" />
+                    }
+                    label="Дата рождения"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox checked={type === "Номер телефона"} onChange={() => setType("Номер телефона")} name="Номер телефона" />
+                    }
+                    label="Номер телефона"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox checked={type === "Оценка до 5"} onChange={() => setType("Оценка до 5")} name="Оценка до 5" />
+                    }
+                    label="Оценка до 5"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox checked={type === "Оценка до 10"} onChange={() => setType("Оценка до 10")} name="Оценка до 10" />
+                    }
+                    label="Оценка до 10"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox checked={type === "email"} onChange={() => setType("email")} name="email" />
+                    }
+                    label="email"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox checked={type === "ФИО"} onChange={() => setType("ФИО")} name="ФИО" />
+                    }
+                    label="ФИО"
+                  />
+                </FormGroup>
+              </FormControl>
+             <Button onClick={addQuestion}>
                   Добавить вопрос
               </Button>
             </FormControl>

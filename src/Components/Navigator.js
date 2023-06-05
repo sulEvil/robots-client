@@ -19,13 +19,15 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import PhonelinkSetupIcon from '@mui/icons-material/PhonelinkSetup';
 import {Link} from "react-router-dom";
 import '../styles/index.css';
+import DownloadIcon from '@mui/icons-material/Download';
 
 const categories = [
     {
         id: 'Редактирование',
         children: [
             { id: 'Редактирование анкеты', icon: <DnsRoundedIcon />, link: '/addQuestion' },
-            { id: 'Редактирование приложения', icon: <SettingsIcon />, link: '/' },
+            // { id: 'Редактирование приложения', icon: <SettingsIcon />, link: '/' },
+            { id: 'Выгрузка', icon: <DownloadIcon />, link: '/unload' },
         ],
     },
 
