@@ -12,7 +12,23 @@ import Question from './Pages/Question';
 import { useState } from 'react';
 import {check} from './http/userAPI';
 import Unload from './Pages/Unload';
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 
+const firebaseConfig = {
+  apiKey: "AIzaSyA9di-NiatND_jN8YqQV2kZaLNefmnivcQ",
+  authDomain: "speedy-rite-318808.firebaseapp.com",
+  projectId: "speedy-rite-318808",
+  storageBucket: "speedy-rite-318808.appspot.com",
+  messagingSenderId: "417898334573",
+  appId: "1:417898334573:web:f4f8d1289a3423345df264",
+  measurementId: "G-VCHR01SNKQ"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 const App = observer((props) => {
   const {user} = useContext(Context)
   const [loading, setLoading] = useState(true)

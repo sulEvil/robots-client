@@ -1,12 +1,19 @@
 import {Context} from './../index.js'
 import React, {useContext, useEffect} from 'react';
 import Wrapper from "../Components/Wrapper";
-import {Grid, ListItem, Typography} from "@mui/material";
+import {Box, Button, Grid, ListItem, Typography} from "@mui/material";
 import ListItemText from "@mui/material/ListItemText";
 import List from "@mui/material/List";
 import {observer} from "mobx-react-lite"
 import { fetchRobots } from '../http/robotAPI.js';
-
+import SendIcon from '@mui/icons-material/Send';
+import * as PropTypes from "prop-types";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+Button.propTypes = {
+    variant: PropTypes.string,
+    endIcon: PropTypes.element,
+    children: PropTypes.node
+};
 const Profile = observer(() => {
     const [dense] = React.useState(false);
     const {user, robots} = useContext(Context)
@@ -46,7 +53,26 @@ const Profile = observer(() => {
                                     secondary={'Идентификатор'}
                                 />
                             </ListItem>
+                            {!user._user.isPremium || <ListItem>
+                                <ListItemText
+                                    primary={"Аккаунт с подпиской до:"}
+                                    secondary={'19.07.2023'}
+                                />
+                            </ListItem>}
                         </List>
+                    {user._user.isPremium ||
+
+                        <Box style={{padding: "12px 6px 24px 12px"}}>
+                            <Typography>
+                                У вас нет подписки
+                            </Typography>
+                            <br />
+                            <Button variant="contained" endIcon={<ShoppingCartIcon />}>
+                                Приобрести подписку
+                            </Button>
+                        </Box>
+
+                    }
                 </Grid>
             </Grid>
         </Wrapper>

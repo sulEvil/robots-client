@@ -8,18 +8,15 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import HomeIcon from '@mui/icons-material/Home';
-import PeopleIcon from '@mui/icons-material/People';
 import DnsRoundedIcon from '@mui/icons-material/DnsRounded';
-import PermMediaOutlinedIcon from '@mui/icons-material/PhotoSizeSelectActual';
-import PublicIcon from '@mui/icons-material/Public';
-import SettingsEthernetIcon from '@mui/icons-material/SettingsEthernet';
-import SettingsInputComponentIcon from '@mui/icons-material/SettingsInputComponent';
-import TimerIcon from '@mui/icons-material/Timer';
-import SettingsIcon from '@mui/icons-material/Settings';
-import PhonelinkSetupIcon from '@mui/icons-material/PhonelinkSetup';
 import {Link} from "react-router-dom";
 import '../styles/index.css';
 import DownloadIcon from '@mui/icons-material/Download';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
+import QuizIcon from '@mui/icons-material/Quiz';
+import LiveHelpIcon from '@mui/icons-material/LiveHelp';
+
 
 const categories = [
     {
@@ -27,7 +24,10 @@ const categories = [
         children: [
             { id: 'Редактирование анкеты', icon: <DnsRoundedIcon />, link: '/addQuestion' },
             // { id: 'Редактирование приложения', icon: <SettingsIcon />, link: '/' },
+            { id: 'Кастомизация роботов', icon: <AutoAwesomeIcon />, link: '/customize', premium: true },
             { id: 'Выгрузка', icon: <DownloadIcon />, link: '/unload' },
+            { id: 'FAQ', icon: <QuizIcon />, link: '/faq' },
+            { id: 'Техническая поддержка', icon: <LiveHelpIcon />, link: '/support', premium: true },
         ],
     },
 
@@ -55,7 +55,7 @@ export default function Navigator(props) {
         <Drawer variant="permanent" {...other}>
             <List disablePadding>
                 <ListItem  sx={{ ...item, ...itemCategory, fontSize: 22, color: '#fff', cursor: 'pointer' }}>
-                    Soft-servis
+                    UfaRobotics
                 </ListItem>
                 <Link to={'/'}  style={{ textDecoration: 'none'}}>
                     <ListItem selected sx={{ ...item, ...itemCategory }}>
@@ -71,12 +71,16 @@ export default function Navigator(props) {
                             <ListItem sx={{ py: 2, px: 3 }}>
                                 <ListItemText sx={{ color: '#fff' }}>{id}</ListItemText>
                             </ListItem>
-                            {children.map(({ id: childId, icon, active, link }) => (
+                            {children.map(({ id: childId, icon, active, link, premium }) => (
                                 <Link key={childId} to={link} className={'navigate__link'} >
                                     <ListItem disablePadding key={childId}>
                                     {/* selected={active} */}
                                         <ListItemButton  sx={item}>
-                                            <ListItemIcon>{icon}</ListItemIcon>
+
+                                            <ListItemIcon style={{position: 'relative'}}>
+                                                {icon}
+                                                {!premium || <WorkspacePremiumIcon style={{fill: 'gold', position: 'absolute', width: '15px', height: '15px', right: '100%'}} />}
+                                            </ListItemIcon>
                                             <ListItemText>{childId}</ListItemText>
                                         </ListItemButton>
                                     </ListItem>

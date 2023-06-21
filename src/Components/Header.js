@@ -12,6 +12,9 @@ import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import {Box} from "@mui/material";
 import { observer } from 'mobx-react-lite';
+import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
+import Badge from '@mui/material/Badge';
+
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
 const Header = observer(({value, setValue}) => {
@@ -53,14 +56,17 @@ const Header = observer(({value, setValue}) => {
                         <Grid item>
                             <Tooltip title="Alerts • No alerts">
                                 <IconButton color="inherit">
-                                    <NotificationsIcon />
+                                    <Badge badgeContent={1} color="secondary">
+                                        <NotificationsIcon />
+                                    </Badge>
                                 </IconButton>
                             </Tooltip>
                         </Grid>
                         <Grid item>
                             <IconButton color="inherit" sx={{ p: 0.5 }}>
-                                <Box style={{backgroundColor: "#bdbdbd", height: "32px", width: "32px", color: "white", borderRadius: "50%"}}>
+                                <Box style={{backgroundColor: "#14365f", height: "32px", width: "32px", color: "white", borderRadius: "50%", position: "relative"}}>
                                     {userName}
+                                    {!user._user.isPremium ||  <WorkspacePremiumIcon  style={{fill: "gold", position: 'absolute', left: '-30%', top: '-25%'}} title={'premium'} /> }
                                 </Box>
                             </IconButton>
                         </Grid>

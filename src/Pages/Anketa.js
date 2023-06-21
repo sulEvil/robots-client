@@ -12,11 +12,12 @@ import CreateQuestion from './../Components/CreateQuestion.js';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { deleteQuestion } from './../http/questionAPI.js';
 import EditIcon from '@mui/icons-material/Edit';
+import Alert from "@mui/material/Alert";
 
 const Anketa = observer(() => {
     const params = useParams()
     const [dense] = React.useState(false);
-    const {questions} = useContext(Context)
+    const {questions, user} = useContext(Context)
     const navigate = useNavigate()
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -40,10 +41,12 @@ const Anketa = observer(() => {
                     <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
                         Анкета
                     </Typography>
+                    {/*Без подписки макс число вопросов, как вариант добавить*/}
+                    {/*{user._user.isPremium || <Alert severity="info">Без подписки макс. количество вопросов 4</Alert>}*/}
                     <CreateQuestion handleOpen={handleOpen} handleClose={handleClose} open={open} fetchQuestions={fetchQuestions}  />
                     <List>
-                    {questions.questions.map(question => 
-                    
+                    {questions.questions.map(question =>
+
                     question.type === 'Мнение' ?
                     <ListItem
                     style={{cursor: 'pointer'}}
@@ -55,19 +58,19 @@ const Anketa = observer(() => {
                                 e.stopPropagation()
                                 navigate('/question/' + question.id)
                             }} />
-                        </IconButton> 
+                        </IconButton>
                         <IconButton edge="end" aria-label="delete">
                             <DeleteIcon onClick={(e) => {
                                 e.stopPropagation()
-                                deletedQuestion(question.id) 
+                                deletedQuestion(question.id)
                             }} />
                         </IconButton>
                         </div>
-                        
+
                     }
                     >
                           <ListItemAvatar>
-    
+
                           </ListItemAvatar>
                           <ListItemText
                               primary={question.text}
@@ -83,30 +86,30 @@ const Anketa = observer(() => {
                             <IconButton edge="end" aria-label="delete">
                                 <DeleteIcon onClick={(e) => {
                                     e.stopPropagation()
-                                    deletedQuestion(question.id) 
+                                    deletedQuestion(question.id)
                                 }} />
                             </IconButton>
                             </div>
-                            
+
                         }
                         >
                           <ListItemAvatar>
-    
+
                           </ListItemAvatar>
                           <ListItemText
                               primary={question.text}
                             //   secondary={robot.desc}
                           />
                       </ListItem>
-                        )}       
+                        )}
                     </List>
-                    
+
                     <Button onClick={handleOpen}>
                         Добавить вопрос
                     </Button>
                 </Grid>
             </Grid>
-        
+
         </Wrapper>
 
     );

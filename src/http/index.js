@@ -6,12 +6,14 @@ import axios from 'axios'
 
 // baseURL: 'http://localhost:9090/'
 // baseURL: 'http://localhost:9090/'
+
+axios.defaults.headers.common['Accept'] = 'application/json'
 const $host = axios.create({
-    baseURL: 'http://gals-centos.soft-servis.local:8080/'
+    baseURL: 'https://robominds.soft-servis.ru/'
 })
 
 const $authHost = axios.create({
-    baseURL: 'http://gals-centos.soft-servis.local:8080/'
+    baseURL: 'https://robominds.soft-servis.ru/'
 })
 
 const authInterceptor = config => {
