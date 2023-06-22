@@ -48,7 +48,6 @@ const Header = observer(({value, setValue}) => {
                                     },
                                 }}
                                 rel="noopener noreferrer"
-
                             >
                                 Мой профиль
                             </Link>

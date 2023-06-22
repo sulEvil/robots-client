@@ -15,6 +15,9 @@ import Unload from './Pages/Unload';
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import Customize from "./Pages/Customize";
+import Faq from "./Pages/Faq";
+import Support from "./Pages/Support";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA9di-NiatND_jN8YqQV2kZaLNefmnivcQ",
@@ -56,13 +59,16 @@ const App = observer((props) => {
                 <Route path="anketa/:id" element={<Anketa />} />
                 <Route path="question/:id" element={<Question />} />
                 <Route path="unload" element={<Unload />} />
+                <Route path="customize" element={<Customize />} />
+                <Route path="faq" element={<Faq />} />
+                <Route path="support" element={<Support />} />
                 <Route exact path="*" element={<h2>Error not found 404</h2>} />
-                
+
             </Routes>
         </Router>
     </div>
   );
-}) 
+})
 
 
 export default App;
