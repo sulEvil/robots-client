@@ -9,6 +9,7 @@ import { fetchRobots } from '../http/robotAPI.js';
 import SendIcon from '@mui/icons-material/Send';
 import * as PropTypes from "prop-types";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import EditIcon from '@mui/icons-material/Edit';
 Button.propTypes = {
     variant: PropTypes.string,
     endIcon: PropTypes.element,
@@ -28,7 +29,7 @@ const Profile = observer(() => {
                     <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
                         Мой профиль
                     </Typography>
-                        <List dense={dense}>
+                        <List dense={dense} style={{display: 'flex', flexDirection: 'column'}}>
                             <ListItem>
                                 <ListItemText
                                     primary={user._user.name}
@@ -58,7 +59,12 @@ const Profile = observer(() => {
                                     primary={"Аккаунт с подпиской до:"}
                                     secondary={'19.07.2023'}
                                 />
-                            </ListItem>}
+                            </ListItem>} 
+                            {/* Для начала нужно получать имя пользователя, тк не приходит пока что */}
+                            {/* Идея - при нажатии открывать форму с данными, то есть менять список на форму, с кнопками отправить или отменить */}
+                            <Button variant="contained" color="secondary" endIcon={<EditIcon />} style={{alignSelf: 'flex-start', marginTop: '8px'}}>
+                                Редактировать профиль
+                            </Button>
                         </List>
                     {user._user.isPremium ||
 

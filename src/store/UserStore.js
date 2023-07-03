@@ -8,7 +8,7 @@ export default class UserStore {
          number: "",
          role: "",
          name: "",
-         isPremium: true
+         isPremium: false
       }
       makeAutoObservable(this)
    }

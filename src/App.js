@@ -18,6 +18,8 @@ import { getAnalytics } from "firebase/analytics";
 import Customize from "./Pages/Customize";
 import Faq from "./Pages/Faq";
 import Support from "./Pages/Support";
+import Customization from './Pages/Customization';
+import ErrorConnect from './Pages/ErrorConnect';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA9di-NiatND_jN8YqQV2kZaLNefmnivcQ",
@@ -52,7 +54,7 @@ const App = observer((props) => {
     <div className="App">
         <Router>
             <Routes>
-              <Route index path="/" element={<Main loading={loading}/>} />
+                <Route index path="/" element={<Main loading={loading}/>} />
                 <Route exact path="login" element={<Login />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="addQuestion" element={<AddQuestion />} />
@@ -60,15 +62,15 @@ const App = observer((props) => {
                 <Route path="question/:id" element={<Question />} />
                 <Route path="unload" element={<Unload />} />
                 <Route path="customize" element={<Customize />} />
+                <Route path="error" element={<ErrorConnect />} />
+                <Route path="customize/:id" element={<Customization />} />
                 <Route path="faq" element={<Faq />} />
                 <Route path="support" element={<Support />} />
                 <Route exact path="*" element={<h2>Error not found 404</h2>} />
-
             </Routes>
         </Router>
     </div>
   );
 })
-
 
 export default App;

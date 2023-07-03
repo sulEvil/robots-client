@@ -7,7 +7,7 @@ import BallotIcon from '@mui/icons-material/Ballot';
 import { observer } from "mobx-react-lite";
 import { useContext } from 'react';
 import { Context } from '..';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {fetchRobots} from './../http/robotAPI'
 import EditIcon from '@mui/icons-material/Edit';
 import Alert from "@mui/material/Alert";
@@ -24,6 +24,9 @@ const Customize = observer((props) => {
         }
 
     }, [])
+    const params = useParams()
+
+    console.log(params)
     return (
         <Wrapper>
             <Grid container spacing={2} style={{backgroundColor: 'white'}}>
@@ -36,7 +39,7 @@ const Customize = observer((props) => {
                         {robots.robots.map(robot =>
                             <ListItem
                                 style={{cursor: 'pointer'}}
-                                onClick = {() => {return navigate('/anketa/' + robot.id)}}
+                                onClick = {() => {return navigate('/customize/' + robot.id)}}
                                 key={robot.id}
                                 secondaryAction={
                                     <IconButton edge="end" aria-label="delete">
