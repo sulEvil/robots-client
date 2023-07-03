@@ -79,10 +79,7 @@ const Profile = observer(() => {
                             Редактировать профиль
                         </Button>
                     </List> :
-                        <EditForm>
-
-                        </EditForm>
-
+                        <EditForm />
                     }
                     {user._user.isPremium ||
 
