@@ -10,14 +10,16 @@ import SendIcon from '@mui/icons-material/Send';
 import * as PropTypes from "prop-types";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import EditIcon from '@mui/icons-material/Edit';
+import EditForm from "../Components/EditForm";
 Button.propTypes = {
     variant: PropTypes.string,
     endIcon: PropTypes.element,
     children: PropTypes.node
 };
 const Profile = observer(() => {
-    const [dense] = React.useState(false);
+    const [dense] = React.useState(false)
     const {user, robots} = useContext(Context)
+    const [edit, setEdit] = React.useState(false)
     console.log(robots)
     useEffect(()=> {
         fetchRobots(user._user.id).then(data => robots.setRobots(data))
@@ -29,43 +31,59 @@ const Profile = observer(() => {
                     <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
                         Мой профиль
                     </Typography>
-                        <List dense={dense} style={{display: 'flex', flexDirection: 'column'}}>
-                            <ListItem>
-                                <ListItemText
-                                    primary={user._user.name}
-                                    secondary={ 'Имя'}
-                                />
-                            </ListItem>
-                            <ListItem>
-                                <ListItemText
-                                    primary={user._user.number}
-                                    secondary={'Номер телефона'}
-                                />
-                            </ListItem>
-                            <ListItem>
-                                <ListItemText
-                                    primary={robots._robots.length}
-                                    secondary={'Кол-во роботов'}
-                                />
-                            </ListItem>
-                            <ListItem>
-                                <ListItemText
-                                    primary={user._user.id}
-                                    secondary={'Идентификатор'}
-                                />
-                            </ListItem>
-                            {!user._user.isPremium || <ListItem>
-                                <ListItemText
-                                    primary={"Аккаунт с подпиской до:"}
-                                    secondary={'19.07.2023'}
-                                />
-                            </ListItem>} 
-                            {/* Для начала нужно получать имя пользователя, тк не приходит пока что */}
-                            {/* Идея - при нажатии открывать форму с данными, то есть менять список на форму, с кнопками отправить или отменить */}
-                            <Button variant="contained" color="secondary" endIcon={<EditIcon />} style={{alignSelf: 'flex-start', marginTop: '8px'}}>
-                                Редактировать профиль
-                            </Button>
-                        </List>
+                    {!edit ? <List dense={dense} style={{display: 'flex', flexDirection: 'column'}}>
+                        <ListItem>
+                            <ListItemText
+                                primary={user._user.name || 'Не указан'}
+                                secondary={ 'Имя'}
+                            />
+                        </ListItem>
+                        <ListItem>
+                            <ListItemText
+                                primary={user._user.number || 'Не указан'}
+                                secondary={'Номер телефона'}
+                            />
+                        </ListItem>
+                        <ListItem>
+                            <ListItemText
+                                primary={user._user.email || 'Не указан'}
+                                secondary={'Email'}
+                            />
+                        </ListItem>
+                        <ListItem>
+                            <ListItemText
+                                primary={robots._robots.length}
+                                secondary={'Кол-во роботов'}
+                            />
+                        </ListItem>
+                        <ListItem>
+                            <ListItemText
+                                primary={user._user.id}
+                                secondary={'Идентификатор'}
+                            />
+                        </ListItem>
+                        {!user._user.isPremium || <ListItem>
+                            <ListItemText
+                                primary={"Аккаунт с подпиской до:"}
+                                secondary={'19.07.2023'}
+                            />
+                        </ListItem>}
+                        {/* Для начала нужно получать имя пользователя, тк не приходит пока что */}
+                        {/* Идея - при нажатии открывать форму с данными, то есть менять список на форму, с кнопками отправить или отменить */}
+                        <Button
+                            onClick={(e) => {setEdit(!edit)}}
+                            variant="contained"
+                            color="secondary"
+                            endIcon={<EditIcon />}
+                            style={{alignSelf: 'flex-start', marginTop: '8px'}}>
+                            Редактировать профиль
+                        </Button>
+                    </List> :
+                        <EditForm>
+
+                        </EditForm>
+
+                    }
                     {user._user.isPremium ||
 
                         <Box style={{padding: "12px 6px 24px 12px"}}>
