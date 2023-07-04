@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Wrapper from "../Components/Wrapper";
-import {Grid, Button, Box, TextField, FormHelperText, ButtonGroup, FormControl, Typography, Input} from "@mui/material";
+import {Grid, Button, Box, TextField, FormHelperText, ButtonGroup, FormControl, Typography, Input, InputLabel} from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useContext } from 'react';
 import { Context } from '..';
@@ -26,6 +26,16 @@ const Customization = observer((props) => {
                     <Typography id="modal-modal-title" variant="h6" component="h2" style={{marginBottom: '16px'}}>
                         Кастомизация робота
                     </Typography>
+                    <Box style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: "100%", padding: '0 16px'}}>
+                        <FormControl style={{width: '100%'}}>
+                            <TextField id="outlined-basic" label="Имя робота" variant="outlined" autocomplete='off' type={'text'} />
+                            <FormHelperText id="my-helper-text" style={{marginBottom: '16px', width: '100%'}}>Имя робота</FormHelperText>
+                        </FormControl>
+                        <FormControl style={{width: '100%'}}>
+                            <TextField id="outlined-basic" label="Описание робота" variant="outlined" autocomplete='off' type={'text'} />
+                            <FormHelperText id="my-helper-text" style={{marginBottom: '16px', width: '100%'}}>Описание робота</FormHelperText>
+                        </FormControl>
+                    </Box>
                     <Box style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: "100%", padding: '0 16px'}}>
                         <Typography  variant="subtitle1" component="h2" style={{marginBottom: '16px'}}>
                             Изменить логотип
@@ -60,7 +70,25 @@ const Customization = observer((props) => {
                             <Box style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '32px 0'}}>
                                 <label htmlFor={'select-color'}>
                                     <Button variant="contained" disableElevation>
-                                        Изменить цветовую гамму
+                                        Изменить цвет фона
+                                    </Button>
+                                </label>
+                                {/*value={'#ffffff'}*/}
+                                <input  id={'select-color'} type={'color'} style={{height: '100px', width: '100px', border: 'none', padding: '0'}}/>
+                            </Box>
+                            <Box style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '32px 0'}}>
+                                <label htmlFor={'select-color'}>
+                                    <Button variant="contained" disableElevation>
+                                        Изменить цвет кнопок
+                                    </Button>
+                                </label>
+                                {/*value={'#ffffff'}*/}
+                                <input  id={'select-color'} type={'color'} style={{height: '100px', width: '100px', border: 'none', padding: '0'}}/>
+                            </Box>
+                            <Box style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '32px 0'}}>
+                                <label htmlFor={'select-color'}>
+                                    <Button variant="contained" disableElevation>
+                                        Изменить цвет текста
                                     </Button>
                                 </label>
                                 {/*value={'#ffffff'}*/}

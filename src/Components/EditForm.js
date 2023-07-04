@@ -11,7 +11,7 @@ const EditForm = observer(({handleClose, open, fetchAnswers}) => {
     const params = useParams()
     const [text, setText] = useState()
     return (
-        <div>
+        <div style={{padding: '0 16px'}}>
             <Typography id="modal-modal-title" variant="h6" component="h2" style={{marginBottom: '16px'}}>
                 Редактирование профиля
             </Typography>

@@ -30,7 +30,7 @@ const Customize = observer((props) => {
     return (
         <Wrapper>
             <Grid container spacing={2} style={{backgroundColor: 'white'}}>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={8}>
                     <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
                         Кастомизация робота
                     </Typography>
